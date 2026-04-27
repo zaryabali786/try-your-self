@@ -1,0 +1,60 @@
+# ── PyTorch ──────────────────────────────────────────────────────────────────
+# Install matching your CUDA version from https://pytorch.org/get-started/locally/
+# Example (CUDA 11.8):
+#   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+# Example (CUDA 12.1):
+#   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+# Example (CPU only):
+#   pip install torch torchvision torchaudio
+torch
+torchvision
+torchaudio
+
+# ── Image & Vision ────────────────────────────────────────────────────────────
+Pillow
+numpy
+scipy
+scikit-image
+opencv-python
+
+# ── HuggingFace Stack (pinned — version changes break the pipeline) ───────────
+diffusers==0.20.2
+transformers==4.31.0
+huggingface_hub==0.16.4
+accelerate==0.21.0
+
+# ── Gradio UI (pinned — v4 has breaking API changes) ─────────────────────────
+gradio==3.41.2
+
+# ── Model Utilities ───────────────────────────────────────────────────────────
+einops
+safetensors
+onnxruntime
+omegaconf
+cloudpickle
+
+# ── Detectron2 / DensePose Dependencies ──────────────────────────────────────
+# NOTE: detectron2 itself is NOT listed here — it needs a special install:
+#   Local (Linux/Mac): pip install 'git+https://github.com/facebookresearch/detectron2.git'
+#   Google Colab:      Use colab_setup.ipynb Cell 2 (auto-detects CUDA version)
+fvcore
+iopath
+pycocotools
+termcolor
+tabulate
+psutil
+
+# ── Visualization ─────────────────────────────────────────────────────────────
+matplotlib
+tqdm
+
+# ── Advanced Image Processing ─────────────────────────────────────────────────
+basicsr
+
+# ── Video ─────────────────────────────────────────────────────────────────────
+av
+
+# ── API Server ────────────────────────────────────────────────────────────────
+fastapi
+uvicorn[standard]
+python-multipart

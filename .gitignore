@@ -1,0 +1,28 @@
+*.pyc
+.idea
+
+# Virtual environment (bahut bada hai)
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyo
+
+# Model checkpoints (GitHub pe nahi jate, Colab mein auto-download hote hain)
+ckpt/
+
+# HuggingFace cache
+.cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.claude/
+
+# Logs
+*.log
