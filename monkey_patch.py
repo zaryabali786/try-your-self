@@ -36,11 +36,26 @@ if not hasattr(huggingface_hub, 'HfFolder'):
 
 # ── JAX compatibility ─────────────────────────────────────────────────────────
 
-# 4. jax.random.KeyArray removed in newer JAX — only patch if jax is installed
+# 4. jax.random.KeyArray removed in newer JAX
 try:
     import jax
     if not hasattr(jax.random, 'KeyArray'):
         import numpy as np
         jax.random.KeyArray = np.ndarray
+except ImportError:
+    pass
+
+# ── transformers 5.x compatibility ───────────────────────────────────────────
+
+# 5. FLAX_WEIGHTS_NAME / TF_WEIGHTS_NAME removed in transformers 5.0
+#    diffusers 0.20.2 imports these from transformers.utils
+try:
+    import transformers.utils as _tu
+    if not hasattr(_tu, 'FLAX_WEIGHTS_NAME'):
+        _tu.FLAX_WEIGHTS_NAME = "flax_model.msgpack"
+    if not hasattr(_tu, 'TF_WEIGHTS_NAME'):
+        _tu.TF_WEIGHTS_NAME = "tf_model.h5"
+    if not hasattr(_tu, 'TF2_WEIGHTS_NAME'):
+        _tu.TF2_WEIGHTS_NAME = "tf_model.h5"
 except ImportError:
     pass
