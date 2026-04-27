@@ -47,15 +47,31 @@ except ImportError:
 
 # ── transformers 5.x compatibility ───────────────────────────────────────────
 
-# 5. FLAX_WEIGHTS_NAME / TF_WEIGHTS_NAME removed in transformers 5.0
-#    diffusers 0.20.2 imports these from transformers.utils
 try:
+    import transformers
     import transformers.utils as _tu
+
+    # 5. FLAX/TF weight name constants removed in transformers 5.0
     if not hasattr(_tu, 'FLAX_WEIGHTS_NAME'):
         _tu.FLAX_WEIGHTS_NAME = "flax_model.msgpack"
     if not hasattr(_tu, 'TF_WEIGHTS_NAME'):
         _tu.TF_WEIGHTS_NAME = "tf_model.h5"
     if not hasattr(_tu, 'TF2_WEIGHTS_NAME'):
         _tu.TF2_WEIGHTS_NAME = "tf_model.h5"
+
+    # 6. CLIPFeatureExtractor renamed to CLIPImageProcessor in transformers 4.x
+    #    removed completely in transformers 5.0
+    if not hasattr(transformers, 'CLIPFeatureExtractor'):
+        from transformers import CLIPImageProcessor
+        transformers.CLIPFeatureExtractor = CLIPImageProcessor
+
+    # 7. ViTFeatureExtractor also renamed — add alias just in case
+    if not hasattr(transformers, 'ViTFeatureExtractor'):
+        try:
+            from transformers import ViTImageProcessor
+            transformers.ViTFeatureExtractor = ViTImageProcessor
+        except ImportError:
+            pass
+
 except ImportError:
     pass
