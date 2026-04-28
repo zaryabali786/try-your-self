@@ -28,10 +28,12 @@ from diffusers import AutoencoderKL, DDPMScheduler
 from utils_mask import get_mask_location
 from preprocess.humanparsing.run_parsing import Parsing
 from preprocess.openpose.run_openpose import OpenPose
-from detectron2.data.detection_utils import (
-    convert_PIL_to_numpy,
-    _apply_exif_orientation,
-)
+from detectron2.data.detection_utils import convert_PIL_to_numpy
+try:
+    from detectron2.data.detection_utils import _apply_exif_orientation
+except ImportError:
+    from PIL import ImageOps
+    _apply_exif_orientation = ImageOps.exif_transpose
 
 
 # ── Device & dtype ────────────────────────────────────────────────────────────
